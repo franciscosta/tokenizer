@@ -1,9 +1,13 @@
+import os
 from openai import OpenAI
 
+api_key = os.getenv("OPENAI_API_KEY_WORK")
+
+if not api_key:
+    raise ValueError("No API key found. Set the OPENAI_API_KEY environment variable.")
+
 client = OpenAI()
-
-client.api_key = "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"
-
+client.api_key = api_key
 
 def call_openai_streaming(messages, model="ft:gpt-3.5-turbo-1106:superlistcom::8hmlRcI5"):
     return client.chat.completions.create(
